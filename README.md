@@ -1,10 +1,10 @@
-# ChatGPT-Simple
+# AI Journalist Recommender Tool
 
-Build a simple locally hosted version of ChatGPT in less than 100 lines of code. Note: This is an unofficial ChatGPT repo and is not associated with OpenAI in anyway!
+Built a Simple AI Jornalist Recommender Tool Which leverages on a large langauge model with over 1 billion parameters!
 
 ## Getting started
 
-To run the example code, you need to create an [OpenAI API key](https://platform.openai.com/account/api-keys)
+you need to create an [OpenAI API key](https://platform.openai.com/account/api-keys)
 
 1. Install requirments using
 ```bash
@@ -21,4 +21,4 @@ $ python server.py
 
 ## The best part
 
-This code was written by GPT-4 : )
+This code was written by GPT-4
