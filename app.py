@@ -15,27 +15,19 @@ def index():
 
 @app.route("/get_response")
 def get_response():
-    message = request.args.get("message")
-    system = {"role": "system", "content": "You are a Journalist Recommender"}
-    user = {"role":"user", "content":message}
-    
-    completion = client.chat.completions.create(
-        model="gpt-4",
-        messages=[system, user],
-    )
-    response = completion.choices[0].message.content
-    return response
+    try:
+        message = request.args.get("message")
+        system = {"role": "system", "content": "You are a Journalist Recommender"}
+        user = {"role":"user", "content":message}
+        
+        completion = client.chat.completions.create(
+            model="gpt-4",
+            messages=[system, user],
+        )
+        response = completion.choices[0].message.content
+        return response
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-    
-# def get_response():
-#     message = request.args.get("message")
-#     user = "You are a Journalist Recommender"
-#     completion = openai.ChatCompletion.create(
-#         model="gpt-4",
-#         messages=[{"role": user, "content": message}],
-#     )
-#     response = completion["choices"][0]["message"]["content"]
-#     return response
