@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Journalist Recommender Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: rgba(151, 96, 151, 0.527);
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 80%;
+      padding: 10px;
+      background-color: #092709;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .result-box {
+      width: 80%;
+      height: 300px;
+      overflow: auto;
+      border: 2px solid #092709;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+    .message {
+      margin-bottom: 10px;
+    }
+    .user {
+      color: rgb(8, 8, 19);
+    }
+    .bot {
+      color: rgb(2, 29, 2);
+    }
+    .loading {
+      color: #333;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI Journalist Recommender Tool</h1>
+  <p>The AI Journalist Recommender is an AI tool that recommends journalists based on uUser preferences e.g 
+    recommend an investigative journalist to handle cybercrime in New York
+  </p>
+  <div class="input-container">
+    <input type="text" id="message" placeholder="Type your message here...">
+    <button id="send">Send</button>
+  </div>
+  <div class="result-box" id="resultBox"></div>
+  <script>
+    var message = document.getElementById("message");
+    var send = document.getElementById("send");
+    var resultBox = document.getElementById("resultBox");
+
+    send.addEventListener("click", function() {
+      var userMessage = message.value;
+
+      // Clear previous output
+      resultBox.innerHTML = "";
+
+      // Display loading indicator
+      var loadingMessage = document.createElement("div");
+      loadingMessage.className = "loading";
+      loadingMessage.textContent = "Loading...";
+      resultBox.appendChild(loadingMessage);
+
+      fetch("/get_response?message=" + encodeURIComponent(userMessage))
+        .then(function(response) {
+          return response.text();
+        })
+        .then(function(botMessage) {
+          // Remove loading indicator
+          resultBox.removeChild(loadingMessage);
+
+          // Display new output
+          var resultMessage = document.createElement("div");
+          resultMessage.className = "message bot";
+          resultMessage.innerHTML = "<strong>JournAIlist:</strong> " + botMessage;
+          resultBox.appendChild(resultMessage);
+
+          message.value = "";
+          message.focus();
+          resultBox.scrollTop = resultBox.scrollHeight;
+      });
+    });
+  </script>
+</body>
+</html>
