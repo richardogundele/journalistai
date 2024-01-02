@@ -19,6 +19,3 @@ OPENAI_API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
 $ python server.py
 ```
 
-## The best part
-
-This code was written by GPT-4
