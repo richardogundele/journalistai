@@ -17,11 +17,11 @@ def index():
 def get_response():
     try:
         message = request.args.get("message")
-        system = {"role": "system", "content": "You are a Journalist Recommender"}
+        system = {"role": "system", "content": "You are a Journalist Recommender and you are to give website links to all your replies"}
         user = {"role":"user", "content":message}
         
         completion = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4-1106-preview",
             messages=[system, user],
         )
         response = completion.choices[0].message.content
